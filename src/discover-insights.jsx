@@ -137,7 +137,7 @@ function InsightsView({ entries, onOpen }) {
   const runAnalysis = async () => {
     setLoading('insights');
     try {
-      const sys = "You are a thoughtful cultural critic and personal archivist. Analyse someone's collection of cultural enthusiasms. Be perceptive, draw unexpected connections, write with warmth. Flowing prose, not bullets. 250–400 words.";
+      const sys = "You are a thoughtful cultural critic and personal archivist. Analyse someone's collection of cultural enthusiasms. Be perceptive, draw unexpected connections, write with warmth. Flowing prose, not bullets. 250–400 words. Write in English (the archive may be multilingual; quote titles in their own language).";
       const usr = 'Here are my ' + entries.length + ' enthusiasms:\n\n' + tp(entries) + '\n\nWhat patterns? What connections? What does this reveal about what moves me?';
       const text = await window.claude.complete({
         model: 'claude-fable-5',
@@ -170,7 +170,7 @@ function InsightsView({ entries, onOpen }) {
     try {
       const h = chat.map(p => 'Q: ' + p.q + '\n\nA: ' + p.a).join('\n\n');
       const prompt =
-        "You are a thoughtful cultural critic. Answer follow-up questions about this person's collection. Warm, perceptive. 150–300 words.\n\n"
+        "You are a thoughtful cultural critic. Answer follow-up questions about this person's collection. Warm, perceptive. 150–300 words. Answer in English unless the question is asked in another language.\n\n"
         + 'My ' + entries.length + ' enthusiasms:\n\n' + tp(entries)
         + '\n\nPrevious analysis:\n' + (insights?.text || '(none)')
         + (h ? '\n\nEarlier exchanges:\n' + h : '')
@@ -488,6 +488,7 @@ function DiscoverView({ entries, wants, onWants }) {
       const sys =
         "You are a meticulous cultural concierge. Recommend SPECIFIC, REAL events and works tailored to this person — never invented, never repeated.\n\n" +
         "RULES:\n" +
+        "0. Write every prose field (summary, why, dates, bookingOpens) in ENGLISH, whatever languages the archive or the events are in. Keep titles and venue names in their own language.\n" +
         "1. Use web search to verify every event recommendation. If you cannot verify it is real and happening within the requested date window, do not include it.\n" +
         "2. Every event must have: exact date, venue, and a one-line reason this specific person would love it (referencing their archive).\n" +
         "3. For films and books: include both recent and older works the person hasn't logged yet — depth and timelessness matter more than novelty.\n" +

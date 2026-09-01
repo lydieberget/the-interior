@@ -258,7 +258,8 @@ function CompanionView({ want, entries, onBack, onLived }) {
         'THE MOMENT — the historical and cultural circumstances around the work.\n' +
         'WHAT TO NOTICE — themes, form, craft to watch for. Strictly nothing of the plot beyond its opening.\n' +
         'IN YOUR INTERIOR — how this work sits among the works in the reader’s own archive, provided below. Name only works actually present in it.\n\n' +
-        '450–650 words. Warm and precise, no gush. Begin directly with the first heading line — no preamble, no closing remark.';
+        '450–650 words. Warm and precise, no gush. Begin directly with the first heading line — no preamble, no closing remark.\n\n' +
+        'Write in English, unless the work itself is French-language — then write in French. Keep titles in their own language.';
       const taste = tasteContext();
       const text = await window.claude.complete({
         model: 'claude-sonnet-4-6',
@@ -287,7 +288,7 @@ function CompanionView({ want, entries, onBack, onLived }) {
         'You are a reading companion for ' + workLabel(want) + '.\n' +
         'The reader is currently at: ' + (comp.position || 'not stated — assume they have only just begun') + '.\n' +
         'STRICT SPOILER RULE: never reveal, foreshadow, or allude to anything in the work beyond that point. If an honest answer would require it, say you would be getting ahead of them, and stop there.\n' +
-        'Warm, specific, concise — 120–250 words. Plain prose.\n\n' +
+        'Warm, specific, concise — 120–250 words. Plain prose. Answer in English unless the reader asks in another language, or the work itself is French-language.\n\n' +
         (comp.sheet ? 'Companion sheet you wrote earlier:\n' + comp.sheet + '\n\n' : '') +
         (h ? 'Earlier exchanges:\n' + h + '\n\n' : '') +
         'The reader asks: ' + t;

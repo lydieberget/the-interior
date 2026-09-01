@@ -52,7 +52,7 @@ function descSystemPrompt() {
     + 'in its maker\'s work and its moment; and why it has mattered. The keeper of this archive has already '
     + 'read, seen, heard or visited it, so you may discuss the substance freely.\n\n'
     + 'Plain text only — NO markdown, no headings, no lists, no title line. Begin directly with the description. '
-    + 'Warm and precise, never blurb-gush.';
+    + 'Warm and precise, never blurb-gush. Write in English, unless the work itself is French-language — then write in French. Keep titles in their own language.';
 }
 
 function descUserMessage(e) {
