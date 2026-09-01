@@ -1,0 +1,4 @@
+.vercel
+# Personal data — a real archive export must never be committed
+enthousiasmes-*.json
+*-backup.json
