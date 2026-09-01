@@ -20,7 +20,7 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 <img src="docs/teaser.gif" width="330" alt="The Interior in motion — ledger, postcards, spread, a poem"/>
 </div>
 
-**[▶ Watch the full guided tour](docs/demo.mp4)** — 3½ minutes, narrated: the archive, the taste-map, the AI essay on your taste, and the full life of one real event — discovered, saved, lived, inscribed.
+**[▶ Watch the full guided tour](https://lydieberget.github.io/the-interior/demo.mp4)** — 3½ minutes, narrated: the archive, the taste-map, the AI essay on your taste, and the full life of one real event — discovered, saved, lived, inscribed.
 
 ## What it does
 
