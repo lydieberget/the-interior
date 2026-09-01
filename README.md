@@ -16,7 +16,11 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 
 ## See it
 
-**[▶ Watch the guided tour](docs/demo.mp4)** — 3½ minutes: the archive, the taste-map, the AI essay on your taste, and the full life of one real event — discovered, saved, lived, inscribed.
+<div align="center">
+<img src="docs/teaser.gif" width="330" alt="The Interior in motion — ledger, postcards, spread, a poem"/>
+</div>
+
+**[▶ Watch the full guided tour](docs/demo.mp4)** — 3½ minutes, narrated: the archive, the taste-map, the AI essay on your taste, and the full life of one real event — discovered, saved, lived, inscribed.
 
 ## What it does
 
