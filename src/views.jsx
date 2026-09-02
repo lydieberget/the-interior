@@ -509,6 +509,14 @@ function DetailView({ entry, onBack, onEdit, onFav }) {
       }}>
         Edit entry
       </button>
+      <div style={{ marginTop: 12 }}>
+        <button onClick={() => sharePostcard('entry', entry)} className="folio" style={{
+          fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--rubric)',
+          background: 'none', border: 'none', cursor: 'pointer',
+        }}>
+          ❧ Send as postcard
+        </button>
+      </div>
 
       {/* colophon — production details at the foot, like a fine-press page */}
       {hasMeta && (

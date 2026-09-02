@@ -128,6 +128,9 @@ function WantRow({ w, onLived, onRemove, missed, onBegin, onSetDown, onCompanion
               <button onClick={() => onLived(w)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>
                 ☞ Lived it
               </button>
+              <button onClick={() => sharePostcard('want', w, cat)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>
+                ❧ Invite
+              </button>
               <button onClick={() => onSetDown(w)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-faint)' }}>
                 Set down
               </button>
@@ -139,6 +142,9 @@ function WantRow({ w, onLived, onRemove, missed, onBegin, onSetDown, onCompanion
               </button>
               <button onClick={() => onBegin(w)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>
                 Begin
+              </button>
+              <button onClick={() => sharePostcard('want', w, cat)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>
+                ❧ Invite
               </button>
               <button onClick={() => onRemove(w)} className="folio" style={{ fontSize: 9.5, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-faint)' }}>
                 Remove

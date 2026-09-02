@@ -1,8 +1,8 @@
-const CACHE='enthousiasmes-v39';
+const CACHE='enthousiasmes-v40';
 const ASSETS=[
   './','./index.html','./manifest.json','./icon-192.svg','./icon-512.svg',
   './vendor/react.js','./vendor/react-dom.js','./vendor/babel.min.js','./vendor/supabase.js',
-  './src/styles.css','./src/db.js','./src/data.js','./src/images.js','./src/clusters.js','./src/descriptions.js','./src/components.jsx','./src/antechamber.jsx','./src/views.jsx','./src/discover-insights.jsx',
+  './src/styles.css','./src/db.js','./src/data.js','./src/postcard.js','./src/images.js','./src/clusters.js','./src/descriptions.js','./src/components.jsx','./src/antechamber.jsx','./src/views.jsx','./src/discover-insights.jsx',
 ];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
