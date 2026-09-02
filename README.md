@@ -16,16 +16,13 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 
 ## See it
 
-
-https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead
-
-
-
 <div align="center">
-<img src="docs/teaser.gif" width="330" alt="The Interior in motion — ledger, postcards, spread, a poem"/>
+  <video src="https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead" width="390" controls></video>
+  <br/>
+  <sub><i>The guided tour — 3½ minutes, narrated: the archive, the taste-map, the essay on your taste, and the full life of one real event, discovered, saved, lived, inscribed.</i></sub>
 </div>
 
-**[▶ Watch the full guided tour](https://lydieberget.github.io/the-interior/demo.mp4)** — 3½ minutes, narrated: the archive, the taste-map, the AI essay on your taste, and the full life of one real event — discovered, saved, lived, inscribed.
+Prefer it full-size? **[Watch the master on the project page](https://lydieberget.github.io/the-interior/demo.mp4)**.
 
 ## What it does
 
