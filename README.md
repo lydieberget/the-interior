@@ -16,13 +16,13 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 
 ## See it
 
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead" width="390" controls></video>
-  <br/>
-  <sub><i>The guided tour — 3½ minutes, narrated: the archive, the taste-map, the essay on your taste, and the full life of one real event, discovered, saved, lived, inscribed.</i></sub>
-</div>
+<table align="center"><tr><td>
+<video src="https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead" controls></video>
+</td></tr></table>
 
-Prefer it full-size? **[Watch the master on the project page](https://lydieberget.github.io/the-interior/demo.mp4)**.
+<p align="center"><sub><i>The guided tour — 3½ minutes, narrated: the archive, the taste-map, the essay on your taste, and the full life of one real event, discovered, saved, lived, inscribed.</i></sub></p>
+
+<p align="center">Prefer it full-size? <b><a href="https://lydieberget.github.io/the-interior/demo.mp4">Watch the master on the project page</a></b>.</p>
 
 ## What it does
 
