@@ -28,6 +28,7 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 - **Insights** — the model reads the whole archive and writes you an essay about your own taste; you can question it afterwards.
 - **Discover** — tell it where you are and when you're free. It web-searches real programmes and dates, then chooses *from your archive, not from what's trending*. Focus it on everything, or just concerts, exhibitions, theatre, cinema, books.
 - **The Antechamber** — the room for things not yet lived. Save a recommendation; press **Begin** when you book; a spoiler-free **companion sheet** appears, grounded in what you already love; after the evening, **Lived it** turns the event into an archive entry, already filled in. What the archive found for you becomes the archive.
+- **Postcards** — send any entry to a friend as a picture, drawn in the house style with your note as its heart; an Antechamber want goes out as an invitation. Straight into WhatsApp through your phone's share sheet — one card at a time, nothing else leaves the archive.
 - Cloud sync (Supabase, single-owner), offline-first PWA, light and dark, covers from Open Library, photographs in private storage.
 
 ## How it's built (deliberately unusual)
