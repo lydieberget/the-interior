@@ -17,7 +17,8 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 ## See it
 
 
-Uploading theinteriortour.mp4…
+https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead
+
 
 
 <div align="center">
