@@ -17,7 +17,11 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 ## See it
 
 <table align="center"><tr><td>
-<video src="https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead" controls></video>
+
+
+https://github.com/user-attachments/assets/c9d2b7e5-071f-4a35-9f6c-33b01841ab0f
+
+
 </td></tr></table>
 
 <p align="center"><sub><i>The guided tour — 3½ minutes, narrated: the archive, the taste-map, the essay on your taste, and the full life of one real event, discovered, saved, lived, inscribed.</i></sub></p>
