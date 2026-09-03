@@ -14,7 +14,11 @@
 ## See it
 
 <table align="center"><tr><td>
-<video src="https://github.com/user-attachments/assets/c9d2b7e5-071f-4a35-9f6c-33b01841ab0f" controls></video>
+
+
+https://github.com/user-attachments/assets/083052c7-485d-41a7-a1c5-cee415c596f7
+
+
 </td></tr></table>
 
 <p align="center"><sub><i>The guided tour — 3½ minutes, narrated · <a href="https://lydieberget.github.io/the-interior/docs/demo.mp4">full quality</a></i></sub></p>
