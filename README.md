@@ -4,6 +4,8 @@
 
 *A commonplace book that reads you back.*
 
+<a href="https://lydieberget.github.io/the-interior/"><img src="https://img.shields.io/badge/%E2%9D%A7%20%20Try%20the%20live%20demo-in%20your%20browser%2C%20nothing%20to%20install-b83a28?style=for-the-badge&labelColor=1a1612" alt="Try the live demo"/></a>
+
 </div>
 
 - **What it is** — a private archive of everything that has moved you: books, concerts, paintings, plays, poems, ideas, quotes.
@@ -19,8 +21,6 @@
 
 <p align="center"><sub><i>The guided tour — 3½ minutes, narrated · <a href="https://lydieberget.github.io/the-interior/docs/demo.mp4">full quality</a></i></sub></p>
 
-<p align="center"><b><a href="https://lydieberget.github.io/the-interior/">Try the live demo →</a></b><br/><sub>A sample archive, already furnished. Nothing to install; nothing you do there is kept.</sub></p>
-
 ## Six rooms
 
 <table>
@@ -35,6 +35,8 @@
 <td align="center"><img src="docs/shots/6-postcard.png" width="260" alt="Postcards"/><br/><sub><b>Postcards</b> — send an entry, or an invitation, to a friend as a picture.</sub></td>
 </tr>
 </table>
+
+<p align="center"><b><a href="https://lydieberget.github.io/the-interior/">Walk through the six rooms yourself →</a></b><br/><sub>A sample archive, already furnished. Nothing to install; nothing you do there is kept.</sub></p>
 
 ## The life of one event
 
