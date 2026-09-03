@@ -2,17 +2,13 @@
 
 # The Interior
 
-*A private commonplace book — and a recommendation engine whose only algorithm is your own taste.*
+*A commonplace book that reads you back.*
 
 </div>
 
-![The Interior — ledger, map, spread](docs/triptych.png)
-
-## Why
-
-Every feed you own studies what you love in order to sell your attention. **The Interior turns that around.** You keep a quiet archive of everything that has moved you — books, concerts, paintings, plays, poems, ideas, quotes — and when you want something new, *that archive* goes looking: real exhibitions near you, concerts this season, books chosen because of what you've loved, with every recommendation naming the entry it grew from.
-
-There is no feed. No likes, no metrics, no infinite scroll. Recommendations arrive as a short letter, and the letter ends. It is personal software in the old sense: built for one reader at a time, tuned for interior life and calm.
+- **What it is** — a private archive of everything that has moved you: books, concerts, paintings, plays, poems, ideas, quotes.
+- **What it refuses** — no feed, no likes, no infinite scroll. The only algorithm is your own taste.
+- **Who it's for** — one person at a time. Yours runs on your own database, under your own key.
 
 ## See it
 
@@ -20,44 +16,52 @@ There is no feed. No likes, no metrics, no infinite scroll. Recommendations arri
 <video src="https://github.com/user-attachments/assets/295d1d85-d267-4ab9-9d0e-17ca5e493ead" controls></video>
 </td></tr></table>
 
-<p align="center"><sub><i>The guided tour — 3½ minutes, narrated: the archive, the taste-map, the essay on your taste, and the full life of one real event, discovered, saved, lived, inscribed.</i></sub></p>
+<p align="center"><sub><i>The guided tour — 3½ minutes, narrated · <a href="https://lydieberget.github.io/the-interior/docs/demo.mp4">full quality</a></i></sub></p>
 
-<p align="center">Prefer it full-size? <b><a href="https://lydieberget.github.io/the-interior/demo.mp4">Watch the master on the project page</a></b>.</p>
+<p align="center"><b><a href="https://lydieberget.github.io/the-interior/">Try the live demo →</a></b><br/><sub>A sample archive, already furnished. Nothing to install; nothing you do there is kept.</sub></p>
 
-## What it does
+## Six rooms
 
-- **Archive** — your entries in four readings: a bookkeeper's **Ledger**, picture **Postcards**, a slow **Spread**, and a **Map** that scores every entry against thirteen "provinces" of an interior world and draws your taste as a territory, a sky of constellations, or a rose.
-- **Insights** — the model reads the whole archive and writes you an essay about your own taste; you can question it afterwards.
-- **Discover** — tell it where you are and when you're free. It web-searches real programmes and dates, then chooses *from your archive, not from what's trending*. Focus it on everything, or just concerts, exhibitions, theatre, cinema, books.
-- **The Antechamber** — the room for things not yet lived. Save a recommendation; press **Begin** when you book; a spoiler-free **companion sheet** appears, grounded in what you already love; after the evening, **Lived it** turns the event into an archive entry, already filled in. What the archive found for you becomes the archive.
-- **Postcards** — send any entry to a friend as a picture, drawn in the house style with your note as its heart; an Antechamber want goes out as an invitation. Straight into WhatsApp through your phone's share sheet — one card at a time, nothing else leaves the archive.
-- Cloud sync (Supabase, single-owner), offline-first PWA, light and dark, covers from Open Library, photographs in private storage.
+<table>
+<tr>
+<td align="center"><img src="docs/shots/1-ledger.png" width="260" alt="The Ledger"/><br/><sub><b>The Ledger</b> — every entry, newest first, folio-numbered.</sub></td>
+<td align="center"><img src="docs/shots/2-map.png" width="260" alt="The Map"/><br/><sub><b>The Map</b> — your taste drawn as provinces of an interior world.</sub></td>
+<td align="center"><img src="docs/shots/3-insights.png" width="260" alt="Insights"/><br/><sub><b>Insights</b> — an essay about your own taste, written from the archive.</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="docs/shots/4-discover.png" width="260" alt="Discover"/><br/><sub><b>Discover</b> — real events, chosen from your archive. Every pick says why.</sub></td>
+<td align="center"><img src="docs/shots/5-antechamber.png" width="260" alt="The Antechamber"/><br/><sub><b>The Antechamber</b> — the room for things not yet lived, with a companion for each.</sub></td>
+<td align="center"><img src="docs/shots/6-postcard.png" width="260" alt="Postcards"/><br/><sub><b>Postcards</b> — send an entry, or an invitation, to a friend as a picture.</sub></td>
+</tr>
+</table>
 
-## How it's built (deliberately unusual)
+## The life of one event
 
-**There is no build step.** React and Babel load from `vendor/`, and the `.jsx` transpiles in the browser at load time. No bundler, no `node_modules`, no framework churn — the repo *is* the app. One serverless function (`api/claude.js`) proxies the Anthropic API so the key never reaches the client. Postgres + row-level security (Supabase) keep the archive private to its one owner; localStorage keeps it instant and offline.
+<p align="center"><b>◉ Discovered → ❧ Saved → ✶ In hand → ☞ Lived → ¶ Inscribed</b></p>
 
-```
-index.html          the shell, top-level state, the API gateway
-src/*.jsx, *.js     views, components, data model — transpiled in the browser
-api/claude.js       the only server code: an Anthropic API proxy
-supabase/schema.sql the whole backend, one file
-vendor/             React, Babel, supabase-js — pinned, self-hosted
-```
+<p align="center"><i>What the archive found for you becomes the archive.</i></p>
+
+## Why it's built this way
+
+- **No build step** — the browser is the compiler; the repo *is* the app.
+- **One serverless function** — the only server code, so the API key never reaches the client.
+- **Your data, your database** — a single Supabase table with row-level security for one owner.
+- **Offline first** — installs as an app, opens without a network, syncs when it can.
 
 ## Run your own
 
-1. **Supabase** (free tier): create a project, paste `supabase/schema.sql` into the SQL editor, run it. In `src/db.js`, fill in your project URL and publishable key.
-2. **Vercel** (free tier): import the repo — framework *Other*, no build command, no output directory. Add the environment variable `ANTHROPIC_API_KEY` ([console.anthropic.com](https://console.anthropic.com)).
-3. Open the app, sign in with your email (a code arrives by return), or choose *keep to this device*.
-4. Optional: import `docs/demo-entries.json` (Archive → bottom → Import) to see it furnished, then delete and begin your own.
+1. **Supabase** (free): create a project, run `supabase/schema.sql` in the SQL editor, put your project URL and publishable key in `src/db.js`.
+2. **Vercel** (free): import the repo — framework *Other*, no build command, no output directory — and add `ANTHROPIC_API_KEY`.
+3. Open the app: sign in with your email (a code arrives by return), or *keep to this device*.
+4. Optional: import `docs/demo-entries.json` to see it furnished, then begin your own.
 
-Costs: hosting is free-tier on both services; the AI features bill per use to your Anthropic key — an Insights essay or Discover letter is a few cents each.
+AI features bill per use to your Anthropic key — an essay or a letter costs a few cents.
 
 ## Design
 
-Warm paper, a vermilion rubric, hairline borders, a variable serif. The aesthetic is an editorial commonplace book, and restraint is a feature: no emoji, no cards with big shadows, nothing louder than the words. All colour and type live as tokens in `src/styles.css`.
+Warm paper, a vermilion rubric, a variable serif, hairline borders. Nothing louder than the words.
 
-## License
-
-[MIT](LICENSE). The demo video's music is Chopin's Nocturne No. 20 in C♯ minor, performed by Frank Lévy for [Musopen](https://musopen.org)'s *Set Chopin Free* project — public domain.
+<p align="center"><sub>
+<a href="docs/PHILOSOPHY.md">Why it's built this way (the long version)</a> · <a href="docs/ARCHITECTURE.md">Architecture</a> · <a href="LICENSE">MIT</a><br/>
+Video music: Chopin, Nocturne No. 20 — Frank Lévy for Musopen, public domain.
+</sub></p>

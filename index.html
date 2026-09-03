@@ -54,6 +54,7 @@ nav.tab-bar {
 /* Route Claude calls to the Vercel serverless function */
 window.claude = {
   async complete(input) {
+    if (window.__DEMO) throw new Error('This is the static demo — the AI features (Insights, Discover, companions, descriptions) need your own deployment with an Anthropic key. See “Run your own” in the README.');
     // Anthropic capacity blips ("Overloaded", HTTP 529) are transient — retry a
     // couple of times with backoff under the same spinner before giving up, so a
     // momentary overload doesn't kill a whole Discover run.
@@ -236,6 +237,23 @@ window.claude = {
 
 <div id="root"></div>
 
+<script>
+/* Demo mode — on the static demo (GitHub Pages) or with ?demo in the URL, an
+   empty archive is furnished once from docs/demo-state.json (a fictional
+   sample archive plus the essay, letter, map and antechamber it produced),
+   before the app boots. A non-empty archive is never touched. */
+window.__DEMO = /\.github\.io$/.test(location.hostname) || /[?&]demo\b/.test(location.search);
+if (window.__DEMO && !localStorage.getItem('enth-entries-v2')) {
+  // synchronous on purpose: the archive must be in place before the app boots (33 KB, same origin)
+  try {
+    const x = new XMLHttpRequest(); x.open('GET', 'docs/demo-state.json', false); x.send();
+    if (x.status === 200) {
+      Object.entries(JSON.parse(x.responseText)).forEach(([k, v]) => localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v)));
+      localStorage.setItem('enth-local-only', '1');
+    }
+  } catch {}
+}
+</script>
 <script src="src/db.js"></script>
 <script src="src/data.js"></script>
 <script src="src/postcard.js"></script>
