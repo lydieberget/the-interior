@@ -14,11 +14,7 @@
 ## See it
 
 <table align="center"><tr><td>
-
-
-https://github.com/user-attachments/assets/083052c7-485d-41a7-a1c5-cee415c596f7
-
-
+<video src="https://github.com/user-attachments/assets/083052c7-485d-41a7-a1c5-cee415c596f7" controls></video>
 </td></tr></table>
 
 <p align="center"><sub><i>The guided tour — 3½ minutes, narrated · <a href="https://lydieberget.github.io/the-interior/docs/demo.mp4">full quality</a></i></sub></p>
@@ -58,7 +54,7 @@ https://github.com/user-attachments/assets/083052c7-485d-41a7-a1c5-cee415c596f7
 1. **Supabase** (free): create a project, run `supabase/schema.sql` in the SQL editor, put your project URL and publishable key in `src/db.js`.
 2. **Vercel** (free): import the repo — framework *Other*, no build command, no output directory — and add `ANTHROPIC_API_KEY`.
 3. Open the app: sign in with your email (a code arrives by return), or *keep to this device*.
-4. Optional: import `docs/demo-entries.json` to see it furnished, then begin your own.
+4. Bring your reading with you: the Archive's **Import** takes a **Goodreads CSV export** — titles, authors, ratings and dates arrive as entries in one go. (Or import `docs/demo-entries.json` to see it furnished, then begin your own.)
 
 AI features bill per use to your Anthropic key — an essay or a letter costs a few cents.
 
