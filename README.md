@@ -9,6 +9,7 @@
 - **What it is** — a private archive of everything that has moved you: books, concerts, paintings, plays, poems, ideas, quotes.
 - **What it refuses** — no feed, no likes, no infinite scroll. The only algorithm is your own taste.
 - **Who it's for** — one person at a time. Yours runs on your own database, under your own key.
+- **What you can share** — a postcard of something that moved you, or an invitation to something you're about to live, sent to a friend as a picture.
 
 ## See it
 
