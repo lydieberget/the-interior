@@ -1,4 +1,4 @@
-const CACHE='enthousiasmes-v40';
+const CACHE='enthousiasmes-v41';
 const ASSETS=[
   './','./index.html','./manifest.json','./icon-192.svg','./icon-512.svg',
   './vendor/react.js','./vendor/react-dom.js','./vendor/babel.min.js','./vendor/supabase.js',

@@ -463,6 +463,92 @@ function CompanionView({ want, entries, onBack, onLived }) {
   );
 }
 
+/* ── Read a cover — photograph a book (or pick a photo) and let it in ──
+   The picture is shrunk client-side, read once by the model (title,
+   author, year), shown back for correction, then becomes a want. The
+   photograph itself is never stored. */
+function ReadCover({ onSave }) {
+  const [state, setState] = useW({ phase: 'idle' }); // idle | reading | read
+  const inputRef = React.useRef(null);
+
+  const onFile = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    setState({ phase: 'reading' });
+    try {
+      const { dataUrl } = await resizeImage(file, 1200, 0.8);
+      const data = dataUrl.split(',')[1];
+      const text = await window.claude.complete({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 300,
+        messages: [{ role: 'user', content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data } },
+          { type: 'text', text: 'This is a photograph of a book — its cover, spine or title page. Read it and reply with ONLY a JSON object: {"title": "...", "author": "...", "year": "..."}. Keep the title in its own language, exactly as printed (drop series banners and blurbs). Author as printed, full name; leave "" when unsure. Year only if printed.' },
+        ] }],
+      });
+      const m = String(text).match(/\{[\s\S]*\}/);
+      const r = m ? JSON.parse(m[0]) : {};
+      setState({ phase: 'read', title: r.title || '', author: r.author || '', year: r.year || '' });
+    } catch (err) {
+      setState({ phase: 'idle' });
+      alert('Could not read the cover: ' + err.message);
+    }
+  };
+
+  const letIn = async () => {
+    const title = (state.title || '').trim();
+    if (!title) return;
+    const author = (state.author || '').trim();
+    const want = {
+      id: 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+      title, category: 'book', artist: author || undefined,
+      metadata: { author: author || undefined, year: (state.year || '').trim() || undefined },
+      source: 'photo', addedAt: Date.now(),
+    };
+    setState({ phase: 'idle' });
+    onSave(want);
+    // the cover, if Open Library has it — attached quietly afterwards
+    try {
+      const url = await findCover({ title, metadata: { author } });
+      if (url) { const all = loadWants(); const i = all.findIndex(w => w.id === want.id); if (i >= 0) { all[i].image = url; saveWants(all); } }
+    } catch {}
+  };
+
+  const field = (key, placeholder, italic) => (
+    <input value={state[key] || ''} onChange={e => setState(s => ({ ...s, [key]: e.target.value }))} placeholder={placeholder}
+      style={{ width: '100%', padding: '7px 0', marginBottom: 10, border: 'none', borderBottom: '0.5px solid var(--line)', background: 'transparent',
+        fontFamily: 'var(--serif)', fontStyle: italic ? 'italic' : 'normal', fontSize: italic ? 13.5 : 17, outline: 'none', color: 'var(--ink)' }}/>
+  );
+
+  return (
+    <div style={{ marginBottom: 14 }}>
+      <input ref={inputRef} type="file" accept="image/*" onChange={onFile} style={{ display: 'none' }}/>
+      {state.phase === 'idle' && (
+        <button onClick={() => inputRef.current && inputRef.current.click()} className="folio"
+          style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--rubric)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+          ❧ Read a book's cover
+        </button>
+      )}
+      {state.phase === 'reading' && (
+        <div className="folio" style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ink-faint)' }}>◌ Reading the cover…</div>
+      )}
+      {state.phase === 'read' && (
+        <div style={{ border: '0.5px solid var(--line)', background: 'var(--card)', padding: '14px 16px 12px', marginTop: 8 }}>
+          <div className="eyebrow rubric" style={{ marginBottom: 10 }}>I read</div>
+          {field('title', 'Title')}
+          {field('author', 'Author', true)}
+          {field('year', 'Year, if printed', true)}
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 4 }}>
+            <button onClick={() => setState({ phase: 'idle' })} style={{ padding: '8px 14px', fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>Not this</button>
+            <button onClick={letIn} style={{ padding: '8px 16px', background: 'var(--rubric)', color: 'var(--paper)', fontFamily: 'var(--mono)', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase' }}>Let it in</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AntechamberView({ wants, entries, onChange, onLived, adding, onAdding }) {
   const [companionFor, setCompanionFor] = useW(null);
 
@@ -523,6 +609,8 @@ function AntechamberView({ wants, entries, onChange, onLived, adding, onAdding }
           ? 'Nothing waits at the door.'
           : wants.length + (wants.length === 1 ? ' work waits' : ' works wait') + ' at the door of the Interior.'}
       </div>
+
+      <ReadCover onSave={w => onChange([w, ...wants])} />
 
       {adding && <AddWantForm onSave={addWant} onCancel={() => onAdding(false)} />}
 
