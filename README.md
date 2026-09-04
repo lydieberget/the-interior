@@ -31,7 +31,7 @@
 </tr>
 <tr>
 <td align="center"><img src="docs/shots/4-discover.png" width="260" alt="Discover"/><br/><sub><b>Discover</b> — real events, chosen from your archive. Every pick says why.</sub></td>
-<td align="center"><img src="docs/shots/5-antechamber.png" width="260" alt="The Antechamber"/><br/><sub><b>The Antechamber</b> — the room for things not yet lived, with a companion for each.</sub></td>
+<td align="center"><img src="docs/shots/5-antechamber.png" width="260" alt="The Antechamber"/><br/><sub><b>The Antechamber</b> — the room for things not yet lived, with a companion for each. Photograph a book's cover to let it in.</sub></td>
 <td align="center"><img src="docs/shots/6-postcard.png" width="260" alt="Postcards"/><br/><sub><b>Postcards</b> — send an entry, or an invitation, to a friend as a picture.</sub></td>
 </tr>
 </table>
