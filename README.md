@@ -25,7 +25,7 @@
 
 <table>
 <tr>
-<td align="center"><img src="docs/shots/1-ledger.png" width="260" alt="The Ledger"/><br/><sub><b>The Ledger</b> — every entry, newest first, folio-numbered.</sub></td>
+<td align="center"><img src="docs/shots/1-ledger.png" width="260" alt="The Ledger"/><br/><sub><b>The Ledger</b> — every entry, newest first, folio-numbered. Photograph a page to keep a quote.</sub></td>
 <td align="center"><img src="docs/shots/2-map.png" width="260" alt="The Map"/><br/><sub><b>The Map</b> — your taste drawn as provinces of an interior world.</sub></td>
 <td align="center"><img src="docs/shots/3-insights.png" width="260" alt="Insights"/><br/><sub><b>Insights</b> — an essay about your own taste, written from the archive.</sub></td>
 </tr>

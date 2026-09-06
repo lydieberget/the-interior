@@ -161,7 +161,7 @@ function QuoteCard({ entry, onOpen, variant = 'block' }) {
         <p className="serif-ital" style={{
           fontSize: big ? 22 : 17, lineHeight: 1.25,
           color: 'var(--ink)', marginBottom: 14,
-          textWrap: 'pretty',
+          textWrap: 'pretty', whiteSpace: 'pre-line',
         }}>
           {entry.title}
         </p>
@@ -203,7 +203,7 @@ function QuoteCard({ entry, onOpen, variant = 'block' }) {
     >
       <p className="serif-ital" style={{
         fontSize: big ? 19 : 16, lineHeight: 1.3, color: 'var(--ink)',
-        marginBottom: 8, textWrap: 'pretty',
+        marginBottom: 8, textWrap: 'pretty', whiteSpace: 'pre-line',
       }}>
         {entry.title}
       </p>

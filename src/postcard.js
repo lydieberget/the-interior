@@ -80,6 +80,55 @@
       cx + 4.5, y); // +half-spacing keeps optically centered
     letterSpaced(ctx, null);
 
+    const md = item.metadata || {};
+    const isQuote = kind === 'entry' && (item.category === 'quote' || item.category === 'idea');
+    if (isQuote) {
+      // the words themselves, italic, with their own line breaks; shrink to fit
+      y += 150;
+      ctx.fillStyle = C.rubric; ctx.globalAlpha = 0.4;
+      ctx.font = '400 120px Fraunces';
+      ctx.fillText('“', cx, y);
+      ctx.globalAlpha = 1;
+      y += 40;
+      // room left above the attribution (~200) and the foot
+      const avail = (H - 84 - 96 - 200) - y;
+      const paras = String(item.title || '').split('\n').map(s => s.trim()).filter(Boolean);
+      let qLines, qSize = 56;
+      for (const s of [56, 48, 42, 36]) {
+        qSize = s;
+        ctx.font = 'italic ' + s + 'px Fraunces';
+        qLines = paras.flatMap(p => wrap(ctx, p, 820));
+        if (qLines.length * Math.round(s * 1.3) <= avail) break;
+      }
+      const qLH = Math.round(qSize * 1.3);
+      const maxQ = Math.max(2, Math.floor(avail / qLH));
+      if (qLines.length > maxQ) { qLines = qLines.slice(0, maxQ); qLines[maxQ - 1] += ' …'; }
+      ctx.fillStyle = C.ink;
+      for (const l of qLines) { ctx.fillText(l, cx, y); y += qLH; }
+      y -= qLH;
+      const who = md.author || md.source;
+      if (who || md.work) {
+        y += 84;
+        ctx.strokeStyle = C.rubric; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(cx - 32, y); ctx.lineTo(cx + 32, y); ctx.stroke();
+        if (who) {
+          y += 58;
+          ctx.fillStyle = C.inkSoft;
+          ctx.font = '400 24px "JetBrains Mono"';
+          letterSpaced(ctx, '5px');
+          ctx.fillText(String(who).toUpperCase(), cx + 2.5, y);
+          letterSpaced(ctx, null);
+        }
+        if (md.work) {
+          y += 50;
+          ctx.fillStyle = C.inkSoft;
+          ctx.font = 'italic 38px Fraunces';
+          ctx.fillText(wrap(ctx, md.work, 840)[0], cx, y);
+        }
+      }
+      return y;
+    }
+
     // title — shrink until it fits in three lines
     y += 100;
     let titleLines, size = 88;
@@ -96,7 +145,6 @@
     y -= titleLH;
 
     // byline
-    const md = item.metadata || {};
     const byline = kind === 'want'
       ? [item.artist, item.venue].filter(Boolean).join(' · ')
       : [md.author || md.venue, md.year || md.period].filter(Boolean).join(' · ');

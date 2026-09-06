@@ -439,7 +439,7 @@ function DetailView({ entry, onBack, onEdit, onFav }) {
           <div style={{ fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 72, lineHeight: 0.7, color: 'var(--rubric)', opacity: 0.4, marginLeft: -6, marginBottom: 2 }}>“</div>
           <h1 className="serif-ital" style={{
             fontSize: big ? 30 : 23, lineHeight: 1.28, fontWeight: 400,
-            marginBottom: 18, textWrap: 'pretty',
+            marginBottom: 18, textWrap: 'pretty', whiteSpace: 'pre-line',
           }}>
             {entry.title}
           </h1>
@@ -558,6 +558,40 @@ function EditModal({ entry, onClose, onSave, onDelete, canUpload = false }) {
   });
   const isNew = !entry?.id;
   const cat = getCat(form.category);
+  const isQ = cat.id === 'quote';
+  // A quote has no title: the words themselves are the entry. They live in
+  // `title` (so search, cards and older entries need nothing) but are edited
+  // as a paragraph, and can be read straight off a photograph of the page.
+  const [readingQuote, setReadingQuote] = useS(false);
+  const quoteInputRef = React.useRef(null);
+  const onQuotePhoto = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!file) return;
+    setReadingQuote(true);
+    try {
+      const { dataUrl } = await resizeImage(file, 1400, 0.82);
+      const data = dataUrl.split(',')[1];
+      const text = await window.claude.complete({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1200,
+        messages: [{ role: 'user', content: [
+          { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data } },
+          { type: 'text', text: 'This is a photograph of a passage — a printed page, a screen, or handwriting. Transcribe it exactly as written, in its own language, with its original spelling and punctuation. If part of the text is underlined, highlighted or otherwise marked, transcribe only that part; otherwise the whole visible passage. Keep line breaks only where they carry meaning (verse); join ordinary prose lines with spaces. Reply with ONLY a JSON object: {"quote": "...", "author": "...", "work": "..."} — give author and work only when they can actually be read on the page (a running head, a caption, a title page), otherwise "".' },
+        ] }],
+      });
+      const m = String(text).match(/\{[\s\S]*\}/);
+      const r = m ? JSON.parse(m[0]) : {};
+      if (!r.quote) throw new Error('no text could be read');
+      setForm(f => ({
+        ...f, title: String(r.quote).trim(),
+        metadata: { ...f.metadata,
+          ...(r.author ? { author: String(r.author).trim() } : {}),
+          ...(r.work ? { work: String(r.work).trim() } : {}) },
+      }));
+    } catch (err) { alert('Could not read the page: ' + err.message); }
+    setReadingQuote(false);
+  };
   // Choose a photograph → shrink it now (#9), upload on save (#37).
   const onPhoto = async (e) => {
     const file = e.target.files && e.target.files[0];
@@ -615,10 +649,33 @@ function EditModal({ entry, onClose, onSave, onDelete, canUpload = false }) {
           ))}
         </div>
 
-        <label className="eyebrow" style={{ display: 'block', marginBottom: 6 }}>Title</label>
-        <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-          placeholder={cat.id === 'poem' ? 'The title of the poem…' : 'Anna Karenina, Clair de Lune…'}
-          style={{ width: '100%', padding: '10px 0', marginBottom: 14, border: 'none', borderBottom: '0.5px solid var(--line)', background: 'transparent', fontFamily: 'var(--serif)', fontSize: 18, outline: 'none' }}/>
+        {isQ ? (
+          <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+              <label className="eyebrow">The quote</label>
+              <input ref={quoteInputRef} type="file" accept="image/*" onChange={onQuotePhoto} style={{ display: 'none' }}/>
+              {readingQuote ? (
+                <span className="folio" style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ink-faint)' }}>◌ Reading the page…</span>
+              ) : (
+                <button onClick={() => quoteInputRef.current && quoteInputRef.current.click()} className="folio"
+                  style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--rubric)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                  ❧ Read from a photo
+                </button>
+              )}
+            </div>
+            <textarea value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+              placeholder="The words themselves — line breaks are kept"
+              rows={4}
+              style={{ width: '100%', padding: '10px 12px', marginBottom: 14, border: '0.5px solid var(--line)', background: 'var(--card)', fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 16, lineHeight: 1.5, outline: 'none', resize: 'vertical', whiteSpace: 'pre-wrap' }}/>
+          </>
+        ) : (
+          <>
+            <label className="eyebrow" style={{ display: 'block', marginBottom: 6 }}>Title</label>
+            <input value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
+              placeholder={cat.id === 'poem' ? 'The title of the poem…' : 'Anna Karenina, Clair de Lune…'}
+              style={{ width: '100%', padding: '10px 0', marginBottom: 14, border: 'none', borderBottom: '0.5px solid var(--line)', background: 'transparent', fontFamily: 'var(--serif)', fontSize: 18, outline: 'none' }}/>
+          </>
+        )}
 
         {cat.id === 'poem' && (
           <>
@@ -687,10 +744,10 @@ function EditModal({ entry, onClose, onSave, onDelete, canUpload = false }) {
             style={{ width: '100%', padding: '8px 0', marginBottom: 14, border: 'none', borderBottom: '0.5px solid var(--line)', background: 'transparent', fontFamily: 'var(--mono)', fontSize: 12, outline: 'none' }}/>
         )}
 
-        <label className="eyebrow" style={{ display: 'block', marginBottom: 2, marginTop: 6 }}>Why it moved me</label>
-        <div className="serif-ital" style={{ fontSize: 12.5, color: 'var(--ink-faint)', marginBottom: 8 }}>{whyPrompt}</div>
+        <label className="eyebrow" style={{ display: 'block', marginBottom: 2, marginTop: 6 }}>{isQ ? 'A note, if you like' : 'Why it moved me'}</label>
+        <div className="serif-ital" style={{ fontSize: 12.5, color: 'var(--ink-faint)', marginBottom: 8 }}>{isQ ? 'Where you met it, or what it stirred — optional.' : whyPrompt}</div>
         <textarea value={form.note} onChange={e => setForm(f => ({ ...f, note: e.target.value }))}
-          placeholder="One line is plenty…"
+          placeholder={isQ ? 'Nothing is needed here.' : 'One line is plenty…'}
           rows={5}
           style={{ width: '100%', padding: '10px 12px', marginBottom: 18, border: '0.5px solid var(--line)', background: 'var(--card)', fontFamily: 'var(--serif)', fontSize: 14, lineHeight: 1.6, outline: 'none', resize: 'vertical' }}/>
 
